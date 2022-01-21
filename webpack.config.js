@@ -24,7 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html')
     })
-  ].filter(Boolean), // hack onde filtra e remove tudo o que não for um valor verdadeiro (valores n-verdadeiros: null, undefined, false, 0, any) hack para poder add plugins de forma condicional dentro do webpack
+  ].filter(Boolean), // hack onde filtra e remove tudo o que não for um valor verdadeiro (valores n-verdadeiros: null, undefined, false, 0, empty) hack para poder add plugins de forma condicional dentro do webpack
   module: {
     rules: [
       {
