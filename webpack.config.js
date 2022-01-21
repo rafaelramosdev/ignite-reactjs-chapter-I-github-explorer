@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const reactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -15,19 +16,28 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    static: path.resolve(__dirname, 'public')
+    static: path.resolve(__dirname, 'public'),
+    hot: true,
   },
   plugins: [
+    isDevelopment && new reactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html')
     })
-  ],
+  ].filter(Boolean), // hack onde filtra e remove tudo o que não for um valor verdadeiro (valores n-verdadeiros: null, undefined, false, 0, any) hack para poder add plugins de forma condicional dentro do webpack
   module: {
     rules: [
       {
         test: /\.jsx$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              isDevelopment && require.resolve('react-refresh/babel')
+            ].filter(Boolean)
+          }
+        }
       },
       {
         test: /\.scss$/,
