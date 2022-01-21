@@ -1,3 +1,5 @@
+import { RepositoryList } from "./components/RepositoryList";
+
 export function App() {
-  return <h1>hello world</h1>
+  return <RepositoryList />
 }
