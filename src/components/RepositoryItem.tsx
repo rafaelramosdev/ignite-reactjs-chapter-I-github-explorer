@@ -1,16 +1,18 @@
-type Repository = {
-  name: string;
-  description: string;
-  html_url: string;
+interface RepositoryItemProps {
+  repository: {
+    name: string;
+    description: string;
+    html_url: string;
+  }
 }
 
-export function RepositoryItem({name, description, html_url}: Repository) {
+export function RepositoryItem(props: RepositoryItemProps) {
   return (
     <li>
-      <strong>{name}</strong>
-      <p>{description}</p>
+      <strong>{props.repository.name}</strong>
+      <p>{props.repository.description}</p>
 
-      <a href={html_url} target="_blank">Acessar repositório</a>
+      <a href={props.repository.html_url} target="_blank">Acessar repositório</a>
     </li>
   );
 }
